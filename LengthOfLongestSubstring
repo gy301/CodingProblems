@@ -1,0 +1,43 @@
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+        
+        if (s=="")
+            return 0;
+        
+        int retlen=1, substrlen=1, strlen = s.Length;
+        string retstr="", substr="", thischar="";
+        substr=s.Substring(0,1);
+        
+        for (int i=1;i<strlen;i++)
+        {
+            
+            thischar=s.Substring(i,1);
+            if (substr.IndexOf(thischar)<0)
+            {
+                substr += thischar;
+                substrlen++;
+                 if (substrlen>retlen)
+                     retlen++;
+                //Console.WriteLine("if:" + thischar + ";" + substr + ";" + substrlen );
+                              
+                
+            }
+            else
+            {
+                //Console.WriteLine(thischar + " is found at :" + substr.IndexOf(thischar));
+                substr=substr.Substring(substr.IndexOf(thischar)+1);
+                
+                substr += thischar;
+                substrlen=substr.Length;  
+                //Console.WriteLine("else:" + thischar + ";" + substr + ";" + substrlen);
+            }
+            
+            
+        }
+        
+        return retlen;
+        
+        
+        
+    }
+}
