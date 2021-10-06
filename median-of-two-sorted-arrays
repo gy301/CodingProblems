@@ -1,0 +1,102 @@
+//https://leetcode.com/problems/median-of-two-sorted-arrays/
+public class Solution {
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
+        
+        double [] mergedarrayunsorted = new double[nums1.Length + nums2.Length];
+        int nums1Size=nums1.Length, nums2Size=nums2.Length;
+        int mergedarrayunsortedSize = nums1Size + nums2Size;
+        int biggerarraylen,smallerarraylen;
+        int medianindex=0;
+        if (nums2Size>nums1Size)
+        {
+            biggerarraylen=nums2Size;
+            smallerarraylen=nums1Size;
+        }
+        else {
+            biggerarraylen=nums1Size;
+            smallerarraylen=nums2Size;
+            
+        }
+            
+        int i=0,a=0;
+        
+            for(int j=0;j<smallerarraylen;j++)
+            {
+                 
+                 mergedarrayunsorted[i] = nums1[j]>=nums2[j]? nums2[j]: nums1[j];
+   
+                a=i;
+                while (a>0 && (mergedarrayunsorted[a-1]>mergedarrayunsorted[a]))
+                  {
+                      mergedarrayunsorted[a-1]+=mergedarrayunsorted[a];
+                      mergedarrayunsorted[a]=mergedarrayunsorted[a-1]-mergedarrayunsorted[a];
+                      mergedarrayunsorted[a-1]=mergedarrayunsorted[a-1]-mergedarrayunsorted[a];
+                      a--;
+                  }
+                      
+                  
+   
+                 i++;
+                   mergedarrayunsorted[i] = nums1[j]>=nums2[j]? nums1[j]: nums2[j]; 
+                 a=i;
+                while (a>0 && (mergedarrayunsorted[a-1]>mergedarrayunsorted[a]))
+                  {
+                      mergedarrayunsorted[a-1]+=mergedarrayunsorted[a];
+                      mergedarrayunsorted[a]=mergedarrayunsorted[a-1]-mergedarrayunsorted[a];
+                      mergedarrayunsorted[a-1]=mergedarrayunsorted[a-1]-mergedarrayunsorted[a];
+                      a--;
+                  }
+   
+                i++;
+                
+            }
+        
+            for(int j=smallerarraylen;j<biggerarraylen;j++)
+            {
+                       
+   
+                if(nums2Size>nums1Size)
+                  {
+                      mergedarrayunsorted[i] = nums2[j];
+                      
+                  }
+                  else
+                  {
+                      mergedarrayunsorted[i] = nums1[j];
+                  }
+                 a=i;
+                while (a>0 && (mergedarrayunsorted[a-1]>mergedarrayunsorted[a]))
+                  {
+                      mergedarrayunsorted[a-1]+=mergedarrayunsorted[a];
+                      mergedarrayunsorted[a]=mergedarrayunsorted[a-1]-mergedarrayunsorted[a];
+                      mergedarrayunsorted[a-1]=mergedarrayunsorted[a-1]-mergedarrayunsorted[a];
+                      a--;
+                  }
+                i++;
+            } 
+      
+        
+        
+
+   /*     
+        for (int k=0; k<mergedarrayunsorted.Length;k++)
+        {
+            Console.WriteLine("value at  =" + k +" is: "  + mergedarrayunsorted[k]);
+        }
+    */    
+        if (mergedarrayunsorted.Length%2==0)
+        {
+            medianindex = mergedarrayunsortedSize/2;
+            return (mergedarrayunsorted[medianindex-1] + mergedarrayunsorted[medianindex])/2;
+        }
+        else
+        {
+            medianindex = mergedarrayunsortedSize/2;
+      
+            return mergedarrayunsorted[medianindex] ;
+        }
+        
+    
+        
+    }
+}
