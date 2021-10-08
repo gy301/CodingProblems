@@ -1,0 +1,113 @@
+public class Solution {
+    public int MyAtoi(string s) {
+        if (s=="")
+            return 0;
+        string strX = "";
+        int returnInt=0;
+        string sign="";
+        int didNumberStart=0;
+        
+        
+       if( !(isAllowed(s.Substring(0,1))==1||s.Substring(0,1)=="-" ||s.Substring(0,1)=="+" || s.Substring(0,1)==" "))
+       return 0;
+      
+        for (int i=0;i<s.Length;i++)
+        {
+            if (sign!="" && isNotSignOrNumberOrSpace(s.Substring(i,1))==1)
+            { 
+                Console.WriteLine("here" + s.Substring(i,1) + isNotSignOrNumberOrSpace(s.Substring(i,1)));
+                if (didNumberStart==1)
+                {
+                    break;
+                }
+                    
+                    return 0;
+            }
+            
+            if ((s.Substring(i,1)=="+" || s.Substring(i,1)=="-") && (sign!= "" || didNumberStart==1))
+            {
+               
+                //if (s.Substring(i,1)!=sign)
+                break;
+            }
+            
+            if (s.Substring(i,1)==".")
+                break;
+            
+            if (s.Substring(i,1)==" "){
+                if (didNumberStart==1 || sign!="")
+                {
+                    break;
+                }
+                strX +="";}
+            else
+            {
+                if (s.Substring(i,1)=="-")
+                    sign = "-";
+                    else { 
+                            if (s.Substring(i,1)=="+")
+                            sign = "+";
+                            else {
+                                if (isAllowed(s.Substring(i,1))==1)
+                                    {
+                                        strX += s.Substring(i,1);
+                                        didNumberStart=1; }
+                                    else
+                                    {
+                                       
+                                            break;
+                                        
+                                        
+                                    }
+                                    }
+                                
+                         }
+            }
+            
+        }
+        strX=sign+strX;
+        Console.WriteLine(strX);
+        try {
+            if (strX.Length==0)
+                return 0;
+                returnInt = Convert.ToInt32(strX);
+                return returnInt;
+        
+            }
+        catch (Exception ex)
+        {
+            
+            Console.WriteLine(returnInt + strX);
+            
+            if (didNumberStart==0)
+                return 0;
+            if (s=="-" || s=="+")
+                return 0;
+            if (sign=="-")
+                return -2147483648;
+            else 
+                return 2147483647;
+                
+        }
+       
+        
+    }
+    
+    
+    public int isAllowed(string s)
+    {
+        if (s=="1" ||s=="2" ||s=="3" ||s=="4" ||s=="5" ||s=="6" ||s=="7" ||s=="8" ||s=="9" ||s=="0")
+            return 1;
+        else return 0;
+        
+    }
+    
+    public int isNotSignOrNumberOrSpace(string s)
+    {
+        if (isAllowed(s)==1 || s=="+" || s=="-"|| s==" ")
+            return 0;
+        else return 1;
+        
+    }
+    
+}
