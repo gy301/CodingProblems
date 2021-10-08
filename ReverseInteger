@@ -1,0 +1,31 @@
+//Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
+public class Solution {
+    public int Reverse(int x) {
+        
+        string strX = x.ToString(),xrev="";
+        int returnInt=0;
+        string sign="";
+        
+        if (strX.Substring(0,1)=="-")
+        {
+            strX=strX.Substring(1);
+            sign="-";
+        }
+        Console.WriteLine(strX);
+        for (int i=strX.Length-1;i>=0;i--)
+        {
+            xrev += strX.Substring(i,1);
+        }
+        xrev=sign+xrev;
+        Console.WriteLine(xrev);
+        try
+        {
+            returnInt = Convert.ToInt32(xrev);
+             return returnInt;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
+        
+        
